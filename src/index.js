@@ -7,8 +7,7 @@ import 'tachyons';
 
 const root = createRoot(document.getElementById('root'));
 
-root.render(<App />)
+root.render(<App />);
 
 // ReactDOM.render(<App />, document.getElementById('root'));
 // registerServiceWorker();
-

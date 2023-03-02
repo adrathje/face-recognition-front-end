@@ -6,85 +6,99 @@ class Register extends React.Component {
     this.state = {
       email: '',
       password: '',
-      name: ''
-    }
+      name: '',
+    };
   }
 
+  // update the state with the new user name
   onNameChange = (event) => {
-    this.setState({name: event.target.value})
-  }
+    this.setState({ name: event.target.value });
+  };
 
+  // update the state with the new user email
   onEmailChange = (event) => {
-    this.setState({email: event.target.value})
-  }
+    this.setState({ email: event.target.value });
+  };
 
+  // update the state with the new user password
   onPasswordChange = (event) => {
-    this.setState({password: event.target.value})
-  }
+    this.setState({ password: event.target.value });
+  };
 
   onSubmitSignIn = () => {
-    fetch('http://localhost:3000/register', {
+    fetch('http://localhost:3001/register', {
       method: 'post',
-      headers: {'Content-Type': 'application/json'},
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         email: this.state.email,
         password: this.state.password,
-        name: this.state.name
-      })
+        name: this.state.name,
+      }),
     })
-      .then(response => response.json())
-      .then(user => {
-        if (user) {
-          this.props.loadUser(user)
+      .then((response) => response.json())
+      .then((user) => {
+        // if new user with an id is true, update thier profile
+        if (user.id) {
+          this.props.loadUser(user);
           this.props.onRouteChange('home');
         }
-      })
-  }
+      });
+  };
 
   render() {
     return (
-      <article className="br3 ba b--black-10 mv4 w-100 w-50-m w-25-l mw6 shadow-5 center">
-        <main className="pa4 black-80">
-          <div className="measure">
-            <fieldset id="sign_up" className="ba b--transparent ph0 mh0">
-              <legend className="f1 fw6 ph0 mh0">Register</legend>
-              <div className="mt3">
-                <label className="db fw6 lh-copy f6" htmlFor="name">Name</label>
+      <article className='br3 ba b--black-10 mv4 w-100 w-50-m w-25-l mw6 shadow-5 center'>
+        <main className='pa4 black-80'>
+          <div className='measure'>
+            <fieldset id='sign_up' className='ba b--transparent ph0 mh0'>
+              <legend className='f1 fw6 ph0 mh0'>Register</legend>
+              {/* Name Box */}
+              <div className='mt3'>
+                <label className='db fw6 lh-copy f6' htmlFor='name'>
+                  Name
+                </label>
                 <input
-                  className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
-                  type="text"
-                  name="name"
-                  id="name"
+                  className='pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100'
+                  type='text'
+                  name='name'
+                  id='name'
                   onChange={this.onNameChange}
                 />
               </div>
-              <div className="mt3">
-                <label className="db fw6 lh-copy f6" htmlFor="email-address">Email</label>
+              {/* Email Box */}
+              <div className='mt3'>
+                <label className='db fw6 lh-copy f6' htmlFor='email-address'>
+                  Email
+                </label>
                 <input
-                  className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
-                  type="email"
-                  name="email-address"
-                  id="email-address"
+                  className='pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100'
+                  type='email'
+                  name='email-address'
+                  id='email-address'
                   onChange={this.onEmailChange}
                 />
               </div>
-              <div className="mv3">
-                <label className="db fw6 lh-copy f6" htmlFor="password">Password</label>
+              {/* Password Box */}
+              <div className='mv3'>
+                <label className='db fw6 lh-copy f6' htmlFor='password'>
+                  Password
+                </label>
                 <input
-                  className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
-                  type="password"
-                  name="password"
-                  id="password"
+                  className='b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100'
+                  type='password'
+                  name='password'
+                  id='password'
                   onChange={this.onPasswordChange}
                 />
               </div>
             </fieldset>
-            <div className="">
+            {/* Register Button */}
+            <div className=''>
               <input
                 onClick={this.onSubmitSignIn}
-                className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib"
-                type="submit"
-                value="Register"
+                className='b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib'
+                type='submit'
+                value='Register'
               />
             </div>
           </div>
